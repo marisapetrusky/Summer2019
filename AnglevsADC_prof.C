@@ -1,7 +1,7 @@
 void AnglevsADC_Prof()
 {	
 	// Variables and Branches 
-	// Angles in Radians 
+	// Angles are Radians 
 	
 	double ph, th;
 	double hadc0, hadc1;
