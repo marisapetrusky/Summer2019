@@ -1,4 +1,4 @@
-void AnglevsADC_Prof()
+void AnglevsADC_prof()
 {	
 	// Variables and Branches 
 	// Angles are Radians 
