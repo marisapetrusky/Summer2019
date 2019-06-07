@@ -67,16 +67,17 @@ void AnglevsADC_2D()
 		{
 			t_T->GetEntry(ievt);
 			
+			h_ladc0->Fill(ladc0);
+			h_hadc0->Fill(hadc0);
+			h_ladc1->Fill(ladc1);
+			h_hadc1->Fill(hadc1);
+
 			if (ladc0 > pedestal[0] && hadc0 > pedestal[1] && ladc1 > pedestal[2] && hadc1 > pedestal[3])
 			{
 				// 1D Histogram Fill
 				h_ph->Fill(ph);
 				h_th->Fill(th);
-				h_ladc0->Fill(ladc0);
-				h_hadc0->Fill(hadc0);
-				h_ladc1->Fill(ladc1);
-				h_hadc1->Fill(hadc1);
-	
+					
 				// 2D Histogram Fill
 				h_ladc0_ph->Fill(ph,ladc0);
 				h_ladc1_ph->Fill(ph,ladc1);
