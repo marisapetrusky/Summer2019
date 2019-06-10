@@ -12,7 +12,7 @@ void GEM_Efficiency()
 	
 	for (int iplane = 0; iplane < 4; iplane++)
 	{
-		TString filename = Form("/home/marisa/rootfiles/test_409_plane%d.root",iplane);
+		TString filename = Form("/home/marisa/rootfiles/test_416_plane%d.root",iplane);
 		TFile * p_infile = TFile::Open(filename,"READ");
 		TTree * t_T = (TTree*)p_infile->Get("T");
 		entries = t_T->GetEntries();
@@ -35,8 +35,13 @@ void GEM_Efficiency()
 				{evt_verf[iplane]++;}
 				else if (iplane == 2 && abs(x2_resid) < resolution)
 				{evt_verf[iplane]++;}
-				else if (iplane == 3 && abs(x3_resid) < resolution)
-				{evt_verf[iplane]++;}
+				else if (iplane == 3)
+				{ 
+					if (x3_resid < 0)
+					{x3_resid = x3_resid*-1;}
+					if (x3_resid < resolution)
+					{evt_verf[iplane]++;}
+				}
 			}	
 			else 
 			{continue;}
