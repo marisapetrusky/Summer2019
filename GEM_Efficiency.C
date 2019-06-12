@@ -1,3 +1,7 @@
+// Marisa Petrusky
+// Edit TString filename (Line 29) to change run number
+// Edit value of planes (Line 72) to change number of GEMs to check
+
 bool isBadTrack(double x)
 {	
 	double resolution = 1e-3;
@@ -46,7 +50,7 @@ void PlaneCheck(int iplane)
 			if (xdummy)
 			{evtx_bad++;}
 			if (ydummy)
-			{evty_bad++; cout << "Found bad y" << endl;}
+			{evty_bad++;}
 		}
 	}
 		
