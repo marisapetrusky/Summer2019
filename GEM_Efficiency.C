@@ -27,7 +27,7 @@ void PlaneCheck(int iplane)
 	double evty_bad = 0;
 	double efficiency = 0;
 	
-	TString filename = Form("/home/marisa/rootfiles/test_417_plane%d.root",iplane);
+	TString filename = Form("/home/marisa/rootfiles/test_442_plane%d.root",iplane);
 	TFile * p_infile = TFile::Open(filename,"READ");
 	TTree * t_T = (TTree*)p_infile->Get("T");
 	entries = t_T->GetEntries();
@@ -67,13 +67,19 @@ void PlaneCheck(int iplane)
 	p_infile->Close();
 }
 
-void GEM_Efficiency()
+int GEM_Efficiency()
 {
-	int planes = 4;
-	for (int iplane = 1; iplane <= planes; iplane++)
-	{
-		cout << "Checking GEM" << iplane << "..." << endl;
-		PlaneCheck(iplane);
-	}
+//	int planes = 4;
+//	for (int iplane = 1; iplane <= planes; iplane++)
+//	{
+//		cout << "Checking GEM" << iplane << "..." << endl;
+//		PlaneCheck(iplane);
+//	}
 	
+	int gem;
+	cout << "Check which GEM?" << endl;
+	cin >> gem;
+	PlaneCheck(gem);
+	cout << "Hello" << endl;
+	return 0;	
 }
