@@ -1,37 +1,33 @@
 void EffvsVoltage()
 {
-	double voltage[3] = {3.7,3.75,4};
-	double g0_37 = 115.0/137, g0_375 = 748.0/813, g0_4 = 1006.0/1056;
-	double g1_37 = 118.0/163, g1_375 = 758.0/866, g1_4 = 1017.0/1071;
-	double g2_37 = 120.0/129, g2_375 = 770./818, g2_4 = 1033.0/1076;
-	double g3_37 = 99.0/143, g3_375 = 637.0/847, g3_4 = 824.0/1098;
+	double voltage[4] = {3.65,3.7,3.9,3.95};
 
-	double gem0[3] = {g0_37,g0_375,g0_4};
-	double gem1[3] = {g1_37,g1_375,g1_4};
-	double gem2[3] = {g2_37,g2_375,g2_4};
-	double gem3[3] = {g3_37,g3_375,g3_4};
+	double gem0[4] = {0.906,0.939,0.949,0.9355};
+	double gem1[4] = {0.93,0.945,0.983,0.965};
+	double gem2[4] = {0.927,0.935,0.965,0.963};
+	double gem3[4] = {0.739,0.775,0.798,0.803};
 	
-	TGraph * g0 = new TGraph(3,voltage,gem0);
-	TGraph * g1 = new TGraph(3,voltage,gem1);	
-	TGraph * g2 = new TGraph(3,voltage,gem2);
-	TGraph * g3 = new TGraph(3,voltage,gem3);
+	TGraph * g0 = new TGraph(4,voltage,gem0);
+	TGraph * g1 = new TGraph(4,voltage,gem1);	
+	TGraph * g2 = new TGraph(4,voltage,gem2);
+	TGraph * g3 = new TGraph(4,voltage,gem3);
 	
 	g0->SetMarkerStyle(20);
-	g1->SetMarkerStyle(20);
+	g1->SetMarkerStyle(21);
 	g1->SetMarkerColor(2);
 	g1->SetLineColor(2);
-	g2->SetMarkerStyle(20);
-	g2->SetMarkerColor(6);
-	g2->SetLineColor(6);
-	g3->SetMarkerStyle(20);
+	g2->SetMarkerStyle(22);
+	g2->SetMarkerColor(8);
+	g2->SetLineColor(8);
+	g3->SetMarkerStyle(34);
 	g3->SetMarkerColor(4);
 	g3->SetLineColor(4);
 
 	TMultiGraph * mg = new TMultiGraph();
-	mg->Add(g0,"LP");
-	mg->Add(g1,"LP");
-	mg->Add(g2,"LP");
-	mg->Add(g3,"LP");
+	mg->Add(g0,"P");
+	mg->Add(g1,"P");
+	mg->Add(g2,"P");
+	mg->Add(g3,"P");
 
 	TCanvas * c1 = new TCanvas("c1","c1",800,600);
 	mg->Draw("a");
