@@ -5,7 +5,8 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0)
 	double q_xmax = 0.025; // Correct quartz dimensions?
 	double q_ymax = 0.05;
 	double q_z[2] = {0.7,0.71};
-
+	double test;
+	
 	for (int iquartz = 0; iquartz < 2; iquartz++)
 	{	
 		q_xproj[iquartz] = tan(th)*(q_z[iquartz] - z0) + x0;
