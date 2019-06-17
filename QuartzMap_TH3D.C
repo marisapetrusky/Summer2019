@@ -1,4 +1,4 @@
-void QuartzMap_3D()
+void QuartzMap_TH3D()
 {
 	// User Variables
 	int run;
@@ -17,13 +17,13 @@ void QuartzMap_3D()
 	auto * h_q1_l = new TH3D("h_q1_l","Quartz 1 Map, Low Resolution",25,0.,0.,50,0.,0.,12,0,0.);
 	h_q1_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
 	h_q1_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	TH3D * h_q2_l= new TH3D("h_q2_l","Quartz 2 Map, Low Resolution",25,-0.025,0.025,50,-0.05,0.05,12,140,200);
+	TH3D * h_q2_l= new TH3D("h_q2_l","Quartz 2 Map, Low Resolution",25,0.,0.,50,0.,0.,12,0.,0.);
 	h_q2_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
 	h_q2_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	TH3D * h_q1_h = new TH3D("h_q1_h","Quartz 1 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
+	TH3D * h_q1_h = new TH3D("h_q1_h","Quartz 1 Map, High Resolution",25,0.,0.,50,0.,0.,40,0.,0.);
 	h_q1_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
 	h_q1_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	TH3D * h_q2_h = new TH3D("h_q2_h","Quartz 2 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
+	TH3D * h_q2_h = new TH3D("h_q2_h","Quartz 2 Map, High Resolution",25,0.,0.,50,0.,0.,40,0.,0.);
 	h_q2_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
 	h_q2_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
 
