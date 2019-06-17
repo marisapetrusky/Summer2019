@@ -2,7 +2,7 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0)
 {
 	bool Verbose = 0; // Decide if you want output messages displayed
 	double q_xproj[2], q_yproj[2];
-	double q_xmax = 0.0175; 
+	double q_xmax = 0.015; 
 	double q_ymax = 0.08; // Take long edge of quartz
 	double q_z[2] = {0.42,0.58}; // Estimated z positions in test stand
 	
@@ -30,7 +30,7 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0, double& 
 {
 	bool Verbose = 0; // Decide if you want output messages displayed
 	double q_xproj[2], q_yproj[2];
-	double q_xmax = 0.0175; // Correct quartz dimensions?
+	double q_xmax = 0.015; // Correct quartz dimensions?
 	double q_ymax = 0.08;
 	double q_z[2] = {0.42,0.58};
 
