@@ -10,20 +10,22 @@ void QuartzMap_3D()
 	double ph, th;
 	double hadc0, hadc1, ladc0, ladc1;
 	long entries;
+	double pedestal_l[2] = {1166,1067};
+	double pedestal_h[2] = {148,135};
 	// Histograms
 	gStyle->SetOptStat("nemruoi");
 	auto * h_q1_l = new TH3D("h_q1_l","Quartz 1 Map, Low Resolution",25,0.,0.,50,0.,0.,12,0,0.);
-	//h_q1_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
-	//h_q1_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	//TH3D * h_q2_l= new TH3D("h_q2_l","Quartz 2 Map, Low Resolution",25,-0.025,0.025,50,-0.05,0.05,12,140,200);
-	//h_q2_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
-	//h_q2_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	//TH3D * h_q1_h = new TH3D("h_q1_h","Quartz 1 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
-	//h_q1_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
-	//h_q1_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
-	//TH3D * h_q2_h = new TH3D("h_q2_h","Quartz 2 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
-	//h_q2_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
-	//h_q2_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
+	h_q1_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
+	h_q1_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
+	TH3D * h_q2_l= new TH3D("h_q2_l","Quartz 2 Map, Low Resolution",25,-0.025,0.025,50,-0.05,0.05,12,140,200);
+	h_q2_l->GetXaxis()->SetTitle("X-axis (5 cm long)");
+	h_q2_l->GetYaxis()->SetTitle("Y-axis (10 cm long)");
+	TH3D * h_q1_h = new TH3D("h_q1_h","Quartz 1 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
+	h_q1_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
+	h_q1_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
+	TH3D * h_q2_h = new TH3D("h_q2_h","Quartz 2 Map, High Resolution",25,-0.025,0.025,50,-0.05,0.05,40,1000,1400);
+	h_q2_h->GetXaxis()->SetTitle("X-axis (5 cm long)");
+	h_q2_h->GetYaxis()->SetTitle("Y-axis (10 cm long)");
 
 	cout << "Enter run number" << endl;
 	cin >> run;
@@ -54,11 +56,14 @@ void QuartzMap_3D()
 	for (int ievt = 0; ievt < entries; ievt++)
 	{
 		t_T->GetEntry(ievt);
-		cout << qx1 << endl;
-		h_q1_l->Fill(qx1,qy1,ladc0);
-		//h_q2_l->Fill(qx2,qy2,ladc1);
-		//h_q1_h->Fill(qx1,qy1,hadc0);
-		//h_q2_h->Fill(qx2,qy2,hadc1);
+		//cout << qx1 << endl;
+		//if (ladc0 > pedestal_l[0] && ladc1 > pedestal_l[1] && hadc0 > pedestal_h[0] && hadc1 > pedestal_h[1])
+		{
+			h_q1_l->Fill(qx1,qy1,ladc0);
+			h_q2_l->Fill(qx2,qy2,ladc1);
+			h_q1_h->Fill(qx1,qy1,hadc0);
+			h_q2_h->Fill(qx2,qy2,hadc1);
+		}
 	}	
 	
 	h_q1_l->Draw();	
