@@ -2,9 +2,9 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0)
 {
 	bool Verbose = 0; // Decide if you want output messages displayed
 	double q_xproj[2], q_yproj[2];
-	double q_xmax = 0.025; // Correct quartz dimensions?
-	double q_ymax = 0.05;
-	double q_z[2] = {0.7,0.71};
+	double q_xmax = 0.0175; 
+	double q_ymax = 0.08; // Take long edge of quartz
+	double q_z[2] = {0.42,0.58}; // Estimated z positions in test stand
 	
 	for (int iquartz = 0; iquartz < 2; iquartz++)
 	{	
@@ -30,9 +30,9 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0, double& 
 {
 	bool Verbose = 0; // Decide if you want output messages displayed
 	double q_xproj[2], q_yproj[2];
-	double q_xmax = 0.025; // Correct quartz dimensions?
-	double q_ymax = 0.05;
-	double q_z[2] = {0.7,0.71};
+	double q_xmax = 0.0175; // Correct quartz dimensions?
+	double q_ymax = 0.08;
+	double q_z[2] = {0.42,0.58};
 
 	for (int iquartz = 0; iquartz < 2; iquartz++)
 	{	
@@ -61,7 +61,7 @@ bool QuartzCheck(double th, double ph, double x0, double y0, double z0, double& 
 int Tracker()
 {
 	// User Variables 
-	bool ProjectionOn = 1; // Set TRUE if you'd like to input Z positions and output X and Y positions
+	bool ProjectionOn = 0; // Set TRUE if you'd like to input Z positions and output X and Y positions
 	bool QuartzCheckOn = 1; // Set TRUE if you'd like to check if the track hit the quartz detectors
 	bool FixedZ = 0; // Set TRUE if only checking one z spot, set FALSE if different z position per entry
 	bool PromptUser = 0; // Set TRUE if you want prompts to go through good tracks one by one
@@ -155,6 +155,7 @@ int Tracker()
 		t_Tin->GetEntry(ientry);
 		if (tr > 0)
 		{
+			//cout << "Event in Track " << ientry << endl;
 			qevt_proj++;	
 			if (ProjectionOn)
 			{
@@ -167,11 +168,11 @@ int Tracker()
 					}
 					xproj = tan(th)*(zproj - z0) + x0;		
 					yproj = tan(ph)*(zproj - z0) + y0;
-					if (Verbose)
-					{
-						cout << "Projected X position is " << xproj << endl;
-						cout << "Projected Y position is " << yproj << endl;
-					}
+					//if (Verbose)
+					//{
+					//	cout << "Projected X position is " << xproj << endl;
+					//	cout << "Projected Y position is " << yproj << endl;
+					//}
 					//	cout << "x2 " << x2 << endl;
 					//	cout << "y2 " << y2 << endl;
 					//	cout << "xresid " << x2_resid << endl;
