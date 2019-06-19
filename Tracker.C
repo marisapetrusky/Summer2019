@@ -108,8 +108,8 @@ int Tracker()
 	t_Tin->SetBranchAddress("prex.tr.th",&th);
 	entries = t_Tin->GetEntries();
 
-	//if (OutputFile)
-	
+	//if (OutputFile) // Causes an error, must comment out entire block if you don't want output file
+	//{
 		t_Tin->SetBranchAddress("prex.gems.x2.coord.3Dpos",&x1);
 		t_Tin->SetBranchAddress("prex.gems.y2.coord.3Dpos",&y1);
 		t_Tin->SetBranchAddress("prex.gems.x3.coord.3Dpos",&x2);
@@ -142,11 +142,11 @@ int Tracker()
 		TBranch * b_hadc1 = t_Tout->Branch("h_adc1",&h_adc1,"h_adc1/D");
 		TBranch * b_ladc0 = t_Tout->Branch("l_adc0",&l_adc0,"l_adc0/D");
 		TBranch * b_ladc1 = t_Tout->Branch("l_adc1",&l_adc1,"l_adc1/D");	
-	
+	//}
 
 	if (FixedZ && ProjectionOn)
 	{
-		cout << "Input Z position (m)" << endl;
+		cout << "Input fixed Z position (m)" << endl;
 		cin >> zproj; 
 	}
 
@@ -170,8 +170,8 @@ int Tracker()
 					yproj = tan(ph)*(zproj - z0) + y0;
 					//if (Verbose)
 					//{
-					//	cout << "Projected X position is " << xproj << endl;
-					//	cout << "Projected Y position is " << yproj << endl;
+						cout << "Projected X position is " << xproj << endl;
+						cout << "Projected Y position is " << yproj << endl;
 					//}
 					//	cout << "x2 " << x2 << endl;
 					//	cout << "y2 " << y2 << endl;
