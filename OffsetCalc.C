@@ -45,12 +45,12 @@ void fcn(int& npar, double* gin, double& result, double *par, int iflag)
 		x1_fit = f_x1(x2_coordt,x3_coordt,par[0],par[1]);
 		y1_fit = f_y1(y2_coordt,y3_coordt,par[2],par[3]);
 
-		chi2x = pow(x1_fit - x1_coordt,2);
-		chi2y = pow(y1_fit - y1_coordt,2);
+		chi2x = 1e7*pow(x1_fit - x1_coordt,2); // Scale Chi2 because residual is too small
+		chi2y = 1e7*pow(y1_fit - y1_coordt,2);
 		chi2 += (chi2x + chi2y)/2;
 	}	
 
-	result = chi2*entries; // Chi2 too small for analyzer
+	result = chi2/entries; 
 }
 
 void OffsetCalc()
@@ -70,9 +70,9 @@ void OffsetCalc()
 	arglist[0] = 1;
 	gMinuit->mnexcm("SET ERR",arglist,1,iflag);
 
-	double minTrans = 0.0;
-	double maxTrans = 1e-2;
-	double stepTrans = 1e-7;
+	Double_t minTrans = 0.0;
+	Double_t maxTrans = 1e-2;
+	Double_t stepTrans = 1e-7;
 
 	gMinuit->DefineParameter(0,"x2off",0.0,stepTrans,minTrans,maxTrans);
 	gMinuit->DefineParameter(1,"x3off",0.0,stepTrans,minTrans,maxTrans);
