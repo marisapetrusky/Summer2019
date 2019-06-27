@@ -13,7 +13,7 @@ double x1_fit, y1_fit; // x1 and y1 positions fitted with offsets
 // Control Variables
 int iflag; 
 
-TString s_infile = Form("/chafs1/work1/marisa/RHRS/prexRHRS_%d_verf.root",runno);
+TString s_infile = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_verf.root",runno);
 TFile * f_infile = TFile::Open(s_infile,"READ");
 TTree * Tin = (TTree*)f_infile->Get("T");
 long entries = Tin->GetEntries();

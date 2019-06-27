@@ -60,11 +60,11 @@ void GetVerified()
 		cout << "Processing File " << ifile << "..." << endl;
 		if (arm)
 		{
-			s_infile = Form("/chafs1/work1/marisa/RHRS/NoOffsetCosmic/prexRHRS_20452_%d.root",ifile);
+			s_infile = Form("/chafs1/work1/prex_counting/marisa/RHRS/NoOffsetCosmic/prexRHRS_20452_%d.root",ifile);
 		}
 		else 
 		{
-			s_infile = Form("/chafs1/work1/marisa/LHRS/NoOffsetCosmic/prexLHRS_20452_%d.root",ifile);
+			s_infile = Form("/chafs1/work1/prex_counting/marisa/LHRS/NoOffsetCosmic/prexLHRS_20452_%d.root",ifile);
 		}
 
 		TFile * f_infile = TFile::Open(s_infile,"READ");
@@ -129,11 +129,11 @@ void GetVerified()
 	
 	if (!arm)
 	{
-		s_outfile = Form("/chafs1/work1/marisa/LHRS/prexLHRS_%d_verf.root",runno);
+		s_outfile = Form("/chafs1/work1/prex_counting/marisa/LHRS/prexLHRS_%d_verf.root",runno);
 	}
 	if (arm)
 	{	
-		s_outfile = Form("/chafs1/work1/marisa/RHRS/prexRHRS_%d_verf.root",runno);
+		s_outfile = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_verf.root",runno);
 	}
 
 	TFile * f_outfile = TFile::Open(s_outfile,"RECREATE");
