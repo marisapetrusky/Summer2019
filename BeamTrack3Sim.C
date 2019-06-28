@@ -2,7 +2,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 {
 	// User Variables
 	int nofile = 1; 
-	int entries = 100000;
+	int entries = 5e6;
+	double alert = 1e6;
 	double xOff[3] = {0.0,-6.9e-4,6.9e-6};
 	double yOff[3] = {0.0,6.9e-5,-6.9e-7};
 	bool AddResolution = 0;
@@ -56,6 +57,9 @@ void BeamTrack3Sim(int RandSeed = 0)
 
 	for (int ievt = 0; ievt < entries; ievt++)
 	{
+		
+		//{cout << "Processing event " << ievt << endl;}
+	
 		// Simulate GEM tracks
 		x1_coord = RandGen->Gaus(beamCenter,beamRMS);
 		x3_coord = RandGen->Gaus(beamCenter,beamRMS);
