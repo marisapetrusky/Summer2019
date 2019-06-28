@@ -3,8 +3,8 @@ void Track3Sim(int RandSeed = 0)
 	// User Variables
 	int nofile = 0;
 	int entries = 100000;
-	double xOff[3] = {3.5e-4,6.9e-6};
-	double yOff[3] = {7.4e-3,2.5e-7};
+	double xOff[3] = {0.0,0.01,0.02};//{3.5e-4,6.9e-6};
+	double yOff[3] = {0.0,0.025,0.069};//{7.4e-3,2.5e-7};
 	// Output Branch Variables
 	double x1_coord, y1_coord, x2_coord, y2_coord, x3_coord, y3_coord;
 	double x1_coordt, y1_coordt, x2_coordt, y2_coordt, x3_coordt, y3_coordt;
