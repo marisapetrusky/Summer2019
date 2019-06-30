@@ -2,7 +2,7 @@ void BeamTrack3Sim(int RandSeed = 0)
 {
 	// User Variables
 	int nofile = 1; 
-	int entries = 5e6;
+	int entries = 1e6;
 	double alert = 1e6;
 	double xOff[3] = {0.0,-6.9e-4,6.9e-6};
 	double yOff[3] = {0.0,6.9e-5,-6.9e-7};
@@ -25,15 +25,17 @@ void BeamTrack3Sim(int RandSeed = 0)
 	int xID, yID;
 	double xGEM[3];
 	double yGEM[3];
-	double kx, ky;
+	double kx, ky; // Slope of fitted track
+	double bx, by; // Y-int of fitted track
+	double z0x, z0y; // Z coordinate of Y-int
 
 	TRandom3 * RandGen = new TRandom3(RandSeed);
 	
 	// Fits and Graphs
 	TF1 * f_linx = new TF1("f_linx","[1]*(x-[2]) + [0]",0.,1.);
-	f_linx->FixParameter(2,z[0]);
+	//f_linx->FixParameter(2,z[0]);
 	TF1 * f_liny = new TF1("f_liny","[1]*(x-[2]) + [0]",0.,1.);
-	f_liny->FixParameter(2,z[0]);
+	//f_liny->FixParameter(2,z[0]);
 
 	gStyle->SetOptFit(1);
 
@@ -97,8 +99,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 		yGEM[1] = y2_coord;
 		yGEM[2] = y3_coord;
 		
-		f_linx->FixParameter(0,xGEM[0]);
-		f_liny->FixParameter(0,yGEM[0]);
+		//f_linx->FixParameter(0,xGEM[0]);
+		//f_liny->FixParameter(0,yGEM[0]);
 		
 		TGraph * gx = new TGraph(3,z,xGEM);
 		TGraph * gy = new TGraph(3,z,yGEM);
@@ -107,15 +109,20 @@ void BeamTrack3Sim(int RandSeed = 0)
 		
 		kx = f_linx->GetParameter(1);
 		ky = f_liny->GetParameter(1);
+		bx = f_linx->GetParameter(0);
+		by = f_liny->GetParameter(0);
+		z0x = f_linx->GetParameter(2);
+		z0y = f_liny->GetParameter(2);
+
 		theta = atan(kx);
 		phi = atan(ky);
 		
-		x1_coordt = x1_coord;
-		x2_coordt = kx*(z2 - z1) + x1_coord;
-		x3_coordt = kx*(z3 - z1) + x1_coord;
-		y1_coordt = y1_coord;
-		y2_coordt = ky*(z2 - z1) + y1_coord;
-		y3_coordt = ky*(z3 - z1) + y1_coord;
+		x1_coordt = kx*(z1 - z0x) + bx;//x1_coord;
+		x2_coordt = kx*(z2 - z0x) + bx;
+		x3_coordt = kx*(z3 - z0x) + bx;//x1_coord;
+		y1_coordt = ky*(z1 - z0y) + by;
+		y2_coordt = ky*(z2 - z0y) + by;//y1_coord;
+		y3_coordt = ky*(z3 - z0y) + by;//y1_coord;
 
 		Tout->Fill();
 	}
