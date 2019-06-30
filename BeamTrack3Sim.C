@@ -114,8 +114,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 		z0x = f_linx->GetParameter(2);
 		z0y = f_liny->GetParameter(2);
 
-		theta = atan(kx);
-		phi = atan(ky);
+		theta = atan2(kx);
+		phi = atan2(ky);
 		
 		x1_coordt = kx*(z1 - z0x) + bx;//x1_coord;
 		x2_coordt = kx*(z2 - z0x) + bx;
