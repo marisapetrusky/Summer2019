@@ -4,8 +4,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 	int nofile = 1; 
 	int entries = 1e6;
 	double alert = 1e6;
-	double xOff[3] = {0.0,-6.9e-4,6.9e-5};
-	double yOff[3] = {0.0,6.9e-6,-6.9e-7};
+	double xOff[3] = {0.0,-3.5e-4,3.5e-5};
+	double yOff[3] = {0.0,3.5e-6,-3.5e-7};
 	bool AddResolution = 0;
 	// Output Branch Variables
 	double x1_coord, y1_coord, x2_coord, y2_coord, x3_coord, y3_coord;
