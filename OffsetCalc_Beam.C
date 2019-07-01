@@ -1,7 +1,7 @@
 double CalcRes(double x1, double x2)
 {
 	double resid;
-	resid = x1 - x2;
+	resid = x2 - x1;
 	return resid; 
 }
 
@@ -10,8 +10,8 @@ void OffsetCalc_Beam()
 	// User Variables
 	int runno = 1;
 	bool arm = 1; // 0 for Left, 1 for Right
-	double phmax = 0.0001;
-	double thmax = 0.0001;
+	double phmax = 0.0005;
+	double thmax = 0.0005;
 	// Branch Variables
 	double x1t, x2t, x3t, y1t, y2t, y3t;
 	double ph, th;
@@ -20,7 +20,7 @@ void OffsetCalc_Beam()
 	double x2res, x3res, y2res, y3res;
 	int dummy;
 
-	TH1D * h_x2 = new TH1D("h_x2","Mean Residual for Straight Tracks, GEM2",2000,-0.001,0.001);
+	TH1D * h_x2 = new TH1D("h_x2","Mean Residual for Straight Tracks, GEM2",2000,-0.01,0.01);
 
 	TString s_infile = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_verf.root",runno);
 	TFile * f_infile = TFile::Open(s_infile,"READ");
@@ -50,7 +50,7 @@ void OffsetCalc_Beam()
 	}
 	
 	h_x2->Draw();
-	dummy = h_x2->GetMaximumBin();
+	dummy = h_x2->FindLastBinAbove(1);
 	x2res = h_x2->GetBinCenter(dummy);
 	cout << "X offset in GEM 2: " << x2res << endl;
 	//cout << "Y offset in GEM 2: " << y2_offset << endl;
