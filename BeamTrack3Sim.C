@@ -104,8 +104,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 		
 		TGraph * gx = new TGraph(3,z,xGEM);
 		TGraph * gy = new TGraph(3,z,yGEM);
-		gx->Fit(f_linx,"QR","",0,1);
-		gy->Fit(f_liny,"QR","",0,1);
+		gx->Fit(f_linx,"QR","",-1,1);
+		gy->Fit(f_liny,"QR","",-1,1);
 		
 		kx = f_linx->GetParameter(1);
 		ky = f_liny->GetParameter(1);
@@ -115,8 +115,6 @@ void BeamTrack3Sim(int RandSeed = 0)
 
 		theta = atan(kx);
 		phi = atan(ky);
-                
-                
 		
 		x1_coordt = kx*z1 + bx;//x1_coord;
 		x2_coordt = kx*z2 + bx;
