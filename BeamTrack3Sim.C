@@ -4,8 +4,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 	int nofile = 1; 
 	int entries = 1e6;
 	double alert = 1e6;
-	double xOff[3] = {0.0,-6.9e-4,6.9e-6};
-	double yOff[3] = {0.0,6.9e-5,-6.9e-7};
+	double xOff[3] = {0.0,-6.9e-3,6.9e-3};
+	double yOff[3] = {0.0,6.9e-3,-6.9e-3};
 	bool AddResolution = 0;
 	// Output Branch Variables
 	double x1_coord, y1_coord, x2_coord, y2_coord, x3_coord, y3_coord;
@@ -27,6 +27,7 @@ void BeamTrack3Sim(int RandSeed = 0)
 	double yGEM[3];
 	double kx, ky; // Slope of fitted track
 	double bx, by; // Y-int of fitted track
+	int dummy, dummy2;
 
 	TRandom3 * RandGen = new TRandom3(RandSeed);
 	
@@ -58,8 +59,8 @@ void BeamTrack3Sim(int RandSeed = 0)
 
 	for (int ievt = 0; ievt < entries; ievt++)
 	{
-		if (ievt == 1e5 || ievt == 2e5 || ievt == 3e5 || ievt == 4e5 || ievt == 5e5 || ievt == 6e5 || ievt == 7e5 || ievt == 8e5 || ievt == 9e5 || ievt == 1e6)
-		{cout << "Processing event " << ievt << endl;}
+		//if (dummy == 0.0)
+		//{cout << "Processed event " << ievt << endl;}
 	
 		// Simulate GEM tracks
 		x1_coord = RandGen->Gaus(beamCenter,beamRMS);
