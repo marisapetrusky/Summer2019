@@ -1,7 +1,7 @@
 double CalcRes(double x1, double x2)
 {
 	double resid;
-	resid = x2 - x1;
+	resid = x1 - x2;
 	return resid; 
 }
 
@@ -20,7 +20,10 @@ void OffsetCalc_Beam()
 	double x2res, x3res, y2res, y3res;
 	int dummy;
 
-	TH1D * h_x2 = new TH1D("h_x2","Mean Residual for Straight Tracks, GEM2",2000,-0.01,0.01);
+	TH1D * h_x2 = new TH1D("h_x2","Mean Residual for Straight Tracks, GEM2 X",2000,-0.01,0.01);
+	TH1D * h_x3 = new TH1D("h_x3","Mean Residual for Straight Tracks, GEM3 X",2000,-0.01,0.01);
+	TH1D * h_y2 = new TH1D("h_y2","Mean Residual for Straight Tracks, GEM2 Y",2000,-0.01,0.01);
+	TH1D * h_y3 = new TH1D("h_y3","Mean Residual for Straight Tracks, GEM3 Y",2000,-0.01,0.01);
 
 	TString s_infile = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_verf.root",runno);
 	TFile * f_infile = TFile::Open(s_infile,"READ");
@@ -45,16 +48,40 @@ void OffsetCalc_Beam()
 		{
 			//cout << "Found track!" << endl;
 			x2res = CalcRes(x1t,x2t);
+			x3res = CalcRes(x1t,x3t);
+			y2res = CalcRes(y1t,y2t);
+			y3res = CalcRes(y1t,y3t);
 			h_x2->Fill(x2res);
+			h_x3->Fill(x3res);
+			h_y2->Fill(y2res);
+			h_y3->Fill(y3res);
+			
 		}
 	}
 	
+	TCanvas * c1 = new TCanvas("c1","c1",800,600);
+	c1->Divide(2,2);
+	c1->cd(1);
 	h_x2->Draw();
+	c1->cd(2);
+	h_y2->Draw();
+	c1->cd(3);
+	h_x3->Draw();
+	c1->cd(4);
+	h_y3->Draw();
+
 	dummy = h_x2->FindLastBinAbove(1);
-	x2res = h_x2->GetBinCenter(dummy);
-	cout << "X offset in GEM 2: " << x2res << endl;
-	//cout << "Y offset in GEM 2: " << y2_offset << endl;
-	//cout << "X offset in GEM 3: " << x3_offset << endl;
-	//cout << "Y offset in GEM 3: " << y3_offset << endl;	
+	x2off = h_x2->GetBinCenter(dummy);
+	dummy = h_y2->FindLastBinAbove(1);
+	y2off = h_y2->GetBinCenter(dummy);
+	dummy = h_x3->FindLastBinAbove(1);
+	x3off = h_x3->GetBinCenter(dummy);
+	dummy = h_y3->FindLastBinAbove(1);
+	y3off = h_y3->GetBinCenter(dummy);
+
+	cout << "X offset in GEM 2: " << x2off << endl;
+	cout << "Y offset in GEM 2: " << y2off << endl;
+	cout << "X offset in GEM 3: " << x3off << endl;
+	cout << "Y offset in GEM 3: " << y3off << endl;	
 }
 
