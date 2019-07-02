@@ -5,7 +5,7 @@ double CalcRes(double x1, double x2)
 	return resid; 
 }
 
-void OffsetCalc_Beam()
+void OffsetCalc_Resid()
 {
 	// User Variables
 	int runno = 1;
