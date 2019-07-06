@@ -2,17 +2,22 @@ using namespace ROOT;
 
 void BeamProf()
 {
-	int runno;
-	cout << "Enter run number" << endl;
-	cin >> runno;
+	int runno[3] = {20862,20861,20863};
+	int nofiles = 3;
+	TChain * ch = new TChain("T");
+	TString s_in; 
 
-	TString s_in = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_-1_[0-9].root",runno);//verf.root",runno);
+	for (int ifile = 0; ifile < nofiles; ifile++)
+	{
+		if (runno[file] > 20000)
+		{s_in = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_-1_[*].root",runno);}//verf.root",runno);}
+		else 
+		{s_in = Form("/chafs1/work1/prex_counting/marisa/LHRS/prexLHRS_%d_-1_[*].root",runno);}
+		ch->Add(s_in.Data());
+	}
 	//TFile * f_in = TFile::Open(s_in);
 	//auto t_in = f_in->Get("T");
 	//RDataFrame d("T",f_in);
-	
-	TChain * ch = new TChain("T");
-	ch->Add(s_in.Data());
 	
 	gStyle->SetPadGridX(1);
 	gStyle->SetPadGridY(1);
