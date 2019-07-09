@@ -15,10 +15,9 @@ void zAxisAlignment()
 	double x1_3D, x2_3D, x3_3D, y1_3D, y2_3D, y3_3D;
 	double VDCth, VDCph;
 	double VDCth2, VDCph2;
-	//double xoff = 0.0, yoff = 0.0;
+	double xoff = 0.0, yoff = 0.0;
 	double mx, bx, my, by;
 	double GEMtr, VDCtr;
-	double xoff = -0.02, yoff
 
 	//TChain * ch = new TChain("T");
 	TString s_in = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%i_-1_0.root",runno);
@@ -39,7 +38,7 @@ void zAxisAlignment()
 	t_in->SetBranchAddress("R.tr.n",&VDCtr);
 	long entries = t_in->GetEntries();
 
-	TString s_out = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_transformed.root",runno);
+	TString s_out = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_transformed_wtranslation.root",runno);
 	TFile * f_out = TFile::Open(s_out,"RECREATE");
 	TTree * t_out = new TTree("T","T");
 	TBranch * b_x1p = t_out->Branch("RGEM.x1",&x1p,"RGEM.x1/D");
@@ -115,13 +114,13 @@ void zAxisAlignment()
 			FitLin(x1p,x2p,x3p,z1p,z2p,z3p,mx,bx);
 			FitLin(y1p,y2p,y3p,z1p,z2p,z3p,my,by);
 			
-			x1_3D = mx*z1p + bx + xoff;
-			x2_3D = mx*z2p + bx + xoff; 
-			x3_3D = mx*z3p + bx + xoff; 
+			x1_3D = mx*z1p + bx;
+			x2_3D = mx*z2p + bx; 
+			x3_3D = mx*z3p + bx; 
 		
-			y1_3D = my*z1p + by + yoff; 
-			y2_3D = my*z2p + by + yoff;
-			y3_3D = my*z3p + by + yoff;
+			y1_3D = my*z1p + by; 
+			y2_3D = my*z2p + by;
+			y3_3D = my*z3p + by;
 
 			t_out->Fill();
 		}
@@ -133,10 +132,12 @@ void zAxisAlignment()
 
 void Transform(double& x, double& y, double& z)
 {
-	double a = -0.006717;
-	double b = -0.007317;
-	x = cos(a)*x + sin(b)*sin(a)*y + sin(b)*cos(a)*z;
-	y = cos(a)*y - sin(a)*y;
+	double a = 0.00703; // X rotation
+	double b = 0.007447; // Y rotation
+	double xoff = 0.013;
+	double yoff = -0.00687;
+	x = cos(a)*x + sin(b)*sin(a)*y + sin(b)*cos(a)*z - xoff;
+	y = cos(a)*y - sin(a)*y - yoff;
 	z = -sin(b)*x + cos(b)*sin(a)*y + cos(b)*cos(a)*z; 
 }
 
