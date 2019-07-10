@@ -1,10 +1,13 @@
-using namespace ROOT;
-
 void Transform(double& x, double& y, double& z);
 void FitLin(double x1, double x2, double x3, double z1, double z2, double z3, double& m, double& b);
 //void Refit(double& x1, double& x2, double& x3, double m, double b);
 
-void zAxisAlignment()
+double xRotation = 0.0;//0.00703; // From Run 20862
+double yRotation = 0.0;//0.007447; 
+double xTranslation = 0.0;//0.013;
+double yTranslation = 0.0;//-0.00687;
+
+void RGEM_Alignment()
 {
 	int runno = 20862;
 	double x1, x2, x3, y1, y2, y3, z1 = 0.684, z2 = 1.3698, z3 = 1.573;
@@ -15,7 +18,6 @@ void zAxisAlignment()
 	double x1_3D, x2_3D, x3_3D, y1_3D, y2_3D, y3_3D;
 	double VDCth, VDCph;
 	double VDCth2, VDCph2;
-	double xoff = 0.0, yoff = 0.0;
 	double mx, bx, my, by;
 	double GEMtr, VDCtr;
 
@@ -62,16 +64,16 @@ void zAxisAlignment()
 	TBranch * b_y1o = t_out->Branch("RGEM.y1.ori",&y1o,"RGEM.y1.ori/D");
 	TBranch * b_y2o = t_out->Branch("RGEM.y2.ori",&y2o,"RGEM.y2.ori/D");
 	TBranch * b_y3o = t_out->Branch("RGEM.y3.ori",&y3o,"RGEM.y3.ori/D");
-	TBranch * b_x1v = t_out->Branch("VDC.x1",&x1v,"VDC.x1/D");
-	TBranch * b_x2v = t_out->Branch("VDC.x2",&x2v,"VDC.x2/D");
-        TBranch * b_x3v = t_out->Branch("VDC.x3",&x3v,"VDC.x3/D"); 
-	TBranch * b_y1v = t_out->Branch("VDC.y1",&y1v,"VDC.y1/D");
-	TBranch * b_y2v = t_out->Branch("VDC.y2",&y2v,"VDC.y2/D");
-	TBranch * b_y3v = t_out->Branch("VDC.y3",&y3v,"VDC.y3/D");
-	TBranch * b_VDCth = t_out->Branch("VDC.th",&VDCth2,"VDC.th/D");
-	TBranch * b_VDCph = t_out->Branch("VDC.ph",&VDCph2,"VDC.ph/D");
-	TBranch * b_GEMth = t_out->Branch("GEM.th",&mx,"GEM.th/D");
-	TBranch * b_GEMph = t_out->Branch("GEM.ph",&my,"GEM.ph/D");
+	TBranch * b_x1v = t_out->Branch("RVDC.x1",&x1v,"RVDC.x1/D");
+	TBranch * b_x2v = t_out->Branch("RVDC.x2",&x2v,"RVDC.x2/D");
+        TBranch * b_x3v = t_out->Branch("RVDC.x3",&x3v,"RVDC.x3/D"); 
+	TBranch * b_y1v = t_out->Branch("RVDC.y1",&y1v,"RVDC.y1/D");
+	TBranch * b_y2v = t_out->Branch("RVDC.y2",&y2v,"RVDC.y2/D");
+	TBranch * b_y3v = t_out->Branch("RVDC.y3",&y3v,"RVDC.y3/D");
+	TBranch * b_VDCth = t_out->Branch("RVDC.th",&VDCth2,"RVDC.th/D");
+	TBranch * b_VDCph = t_out->Branch("RVDC.ph",&VDCph2,"RVDC.ph/D");
+	TBranch * b_GEMth = t_out->Branch("RGEM.th",&mx,"RGEM.th/D");
+	TBranch * b_GEMph = t_out->Branch("RGEM.ph",&my,"RGEM.ph/D");
 
 	for (int ievt = 0; ievt < entries; ievt++)
 	{
@@ -132,10 +134,11 @@ void zAxisAlignment()
 
 void Transform(double& x, double& y, double& z)
 {
-	double a = 0.00703; // X rotation
-	double b = 0.007447; // Y rotation
-	double xoff = 0.013;
-	double yoff = -0.00687;
+	double a = xRotation;
+	double b = yRotation;
+	double xoff = xTranslation;
+	double yoff = yTranslation;
+
 	x = cos(a)*x + sin(b)*sin(a)*y + sin(b)*cos(a)*z - xoff;
 	y = cos(a)*y - sin(a)*y - yoff;
 	z = -sin(b)*x + cos(b)*sin(a)*y + cos(b)*cos(a)*z; 
