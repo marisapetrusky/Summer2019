@@ -22,7 +22,7 @@ void LGEM_Alignment()
 	double GEMtr, VDCtr;
 
 	//TChain * ch = new TChain("T");
-	TString s_in = Form("/chafs1/work1/prex_counting/marisa/LHRS/prexLHRS_%i_-1_0.root",runno);
+	TString s_in = Form("/chafs1/work1/prex_counting/prexLHRS_%i_-1.root",runno);
 	//Int_t infiles = ch->Add(s_in.Data());
 	TFile * f_in = TFile::Open(s_in,"READ");
 	TTree * t_in = (TTree*)f_in->Get("T");
