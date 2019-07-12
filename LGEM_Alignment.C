@@ -7,13 +7,13 @@ double yRotation = 0.0;//0.007447;
 double xTranslation = 0.0;//0.013;
 double yTranslation = 0.0;//-0.00687;
 
-void LGEM_Alignment()
+void LGEM_Alignment(int runno)
 {
-	int runno = 1850;
+	//int runno = 1850;
 	double x1, x2, x3, y1, y2, y3, z1 = 0.684, z2 = 1.3698, z3 = 1.573;
 	double x1p, x2p, x3p, y1p, y2p, y3p, z1p, z2p, z3p;
 	double x1o, x2o, x3o, y1o, y2o, y3o;
-	double xv, yv;
+	double xv, yv, x0v, y0v;
 	double x1v, x2v, x3v, y1v, y2v, y3v; 
 	double x1_3D, x2_3D, x3_3D, y1_3D, y2_3D, y3_3D;
 	double VDCth, VDCph;
@@ -64,6 +64,8 @@ void LGEM_Alignment()
 	TBranch * b_y1o = t_out->Branch("LGEM.y1.ori",&y1o,"LGEM.y1.ori/D");
 	TBranch * b_y2o = t_out->Branch("LGEM.y2.ori",&y2o,"LGEM.y2.ori/D");
 	TBranch * b_y3o = t_out->Branch("LGEM.y3.ori",&y3o,"LGEM.y3.ori/D");
+	TBranch * b_x0v = t_out->Branch("LVDC.x",&x0v,"LVDC.x/D");
+	TBranch * b_y0v = t_out->Branch("LVDC.y",&x0v,"LVDC.y/D");
 	TBranch * b_x1v = t_out->Branch("LVDC.x1",&x1v,"LVDC.x1/D");
 	TBranch * b_x2v = t_out->Branch("LVDC.x2",&x2v,"LVDC.x2/D");
         TBranch * b_x3v = t_out->Branch("LVDC.x3",&x3v,"LVDC.x3/D"); 
@@ -98,6 +100,9 @@ void LGEM_Alignment()
 			y1o = y1;
 			y2o = y2;
 			y3o = y3;
+	
+			x0v = xv;
+			y0v = yv;
 
 			Transform(x1p,y1p,z1p);	
 			Transform(x2p,y2p,z2p);

@@ -2,18 +2,17 @@ void Transform(double& x, double& y, double& z);
 void FitLin(double x1, double x2, double x3, double z1, double z2, double z3, double& m, double& b);
 //void Refit(double& x1, double& x2, double& x3, double m, double b);
 
-double xRotation = 0.0;//0.00703; // From Run 20862
-double yRotation = 0.0;//0.007447; 
-double xTranslation = 0.0;//0.013;
-double yTranslation = 0.0;//-0.00687;
+double xRotation = 0.00703; // From Run 20862
+double yRotation = 0.007447; 
+double xTranslation = 0.013;
+double yTranslation = -0.00687;
 
-void RGEM_Alignment()
+void RGEM_Alignment(int runno)
 {
-	int runno = 20862;
 	double x1, x2, x3, y1, y2, y3, z1 = 0.684, z2 = 1.3698, z3 = 1.573;
 	double x1p, x2p, x3p, y1p, y2p, y3p, z1p, z2p, z3p;
 	double x1o, x2o, x3o, y1o, y2o, y3o;
-	double xv, yv;
+	double xv, yv, x0v,y0v;
 	double x1v, x2v, x3v, y1v, y2v, y3v; 
 	double x1_3D, x2_3D, x3_3D, y1_3D, y2_3D, y3_3D;
 	double VDCth, VDCph;
@@ -40,7 +39,7 @@ void RGEM_Alignment()
 	t_in->SetBranchAddress("R.tr.n",&VDCtr);
 	long entries = t_in->GetEntries();
 
-	TString s_out = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_transformed_wtranslation.root",runno);
+	TString s_out = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_transformed.root",runno);
 	TFile * f_out = TFile::Open(s_out,"RECREATE");
 	TTree * t_out = new TTree("T","T");
 	TBranch * b_x1p = t_out->Branch("RGEM.x1",&x1p,"RGEM.x1/D");
@@ -64,6 +63,8 @@ void RGEM_Alignment()
 	TBranch * b_y1o = t_out->Branch("RGEM.y1.ori",&y1o,"RGEM.y1.ori/D");
 	TBranch * b_y2o = t_out->Branch("RGEM.y2.ori",&y2o,"RGEM.y2.ori/D");
 	TBranch * b_y3o = t_out->Branch("RGEM.y3.ori",&y3o,"RGEM.y3.ori/D");
+	TBranch * b_x0v = t_out->Branch("RVDC.x",&x0v,"RVDC.x/D");
+	TBranch * b_y0v = t_out->Branch("RVDC.y",&y0v,"RVDC.y/D");
 	TBranch * b_x1v = t_out->Branch("RVDC.x1",&x1v,"RVDC.x1/D");
 	TBranch * b_x2v = t_out->Branch("RVDC.x2",&x2v,"RVDC.x2/D");
         TBranch * b_x3v = t_out->Branch("RVDC.x3",&x3v,"RVDC.x3/D"); 
@@ -98,6 +99,9 @@ void RGEM_Alignment()
 			y1o = y1;
 			y2o = y2;
 			y3o = y3;
+		
+			x0v = xv;
+			y0v = yv;
 
 			Transform(x1p,y1p,z1p);	
 			Transform(x2p,y2p,z2p);
