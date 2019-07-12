@@ -19,6 +19,8 @@ void RGEM_Alignment(int runno)
 	double VDCth2, VDCph2;
 	double mx, bx, my, by;
 	double GEMtr, VDCtr;
+	double DSQadc, USQadc;
+	double DSQadcO, USQadcO;
 
 	//TChain * ch = new TChain("T");
 	TString s_in = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%i_-1_0.root",runno);
@@ -37,6 +39,9 @@ void RGEM_Alignment(int runno)
 	t_in->SetBranchAddress("R.tr.th",&VDCth);
 	t_in->SetBranchAddress("RGEM.tr.n",&GEMtr);
 	t_in->SetBranchAddress("R.tr.n",&VDCtr);
+	t_in->SetBranchAddress("P.loQadcR",&DSQadc);
+        t_in->SetBranchAddress("P.upQadcR",&USQadc);	
+
 	long entries = t_in->GetEntries();
 
 	TString s_out = Form("/chafs1/work1/prex_counting/marisa/RHRS/prexRHRS_%d_transformed.root",runno);
@@ -75,6 +80,8 @@ void RGEM_Alignment(int runno)
 	TBranch * b_VDCph = t_out->Branch("RVDC.ph",&VDCph2,"RVDC.ph/D");
 	TBranch * b_GEMth = t_out->Branch("RGEM.th",&mx,"RGEM.th/D");
 	TBranch * b_GEMph = t_out->Branch("RGEM.ph",&my,"RGEM.ph/D");
+	TBranch * b_DSQ = t_out->Branch("DSQadc",&DSQadcO,"DSQadc/D");
+	TBranch * b_USQ = t_out->Branch("USQadc",&USQadcO,"USQadc/D");
 
 	for (int ievt = 0; ievt < entries; ievt++)
 	{
@@ -102,6 +109,9 @@ void RGEM_Alignment(int runno)
 		
 			x0v = xv;
 			y0v = yv;
+
+			USQadcO = USQadc;
+			DSQadcO = DSQadc;
 
 			Transform(x1p,y1p,z1p);	
 			Transform(x2p,y2p,z2p);
