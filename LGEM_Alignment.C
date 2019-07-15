@@ -2,12 +2,12 @@ void Transform(double& x, double& y, double& z);
 void FitLin(double x1, double x2, double x3, double z1, double z2, double z3, double& m, double& b);
 //void Refit(double& x1, double& x2, double& x3, double m, double b);
 
-double xRotation = 0.0;//0.00703; // From Run 20862
-double yRotation = 0.0;//0.007447; 
-double xTranslation = 0.0;//0.013;
-double yTranslation = 0.0;//-0.00687;
+double xRotation = -0.003281 + 0.001; // Keep sign of mean resid angle
+double yRotation = -0.004085 - 0.002;
+double xTranslation = 0.01678;
+double yTranslation = 0.03;
 
-void LGEM_Alignment(int runno)
+int LGEM_Alignment(int runno)
 {
 	//int runno = 1850;
 	double x1, x2, x3, y1, y2, y3, z1 = 0.684, z2 = 1.3698, z3 = 1.573;
@@ -23,24 +23,24 @@ void LGEM_Alignment(int runno)
 	double USQadc, DSQadc, USQadcO, DSQadcO;
 
 	//TChain * ch = new TChain("T");
-	TString s_in = Form("/chafs1/work1/prex_counting/prexLHRS_%i_-1.root",runno);
+	TString s_in = Form("/chafs1/work1/prex_counting/marisa/LHRS/prexLHRS_%i_-1_0.root",runno);
 	//Int_t infiles = ch->Add(s_in.Data());
 	TFile * f_in = TFile::Open(s_in,"READ");
 	TTree * t_in = (TTree*)f_in->Get("T");
-	t_in->SetBranchAddress("LGEM.rgems.x1.coord.3Dpos",&x1);
-	t_in->SetBranchAddress("LGEM.rgems.x2.coord.3Dpos",&x2);
-	t_in->SetBranchAddress("LGEM.rgems.x3.coord.3Dpos",&x3);
-	t_in->SetBranchAddress("LGEM.rgems.y1.coord.3Dpos",&y1);
-	t_in->SetBranchAddress("LGEM.rgems.y2.coord.3Dpos",&y2);
-	t_in->SetBranchAddress("LGEM.rgems.y3.coord.3Dpos",&y3);
+	t_in->SetBranchAddress("LGEM.lgems.x1.coord.3Dpos",&x1);
+	t_in->SetBranchAddress("LGEM.lgems.x2.coord.3Dpos",&x2);
+	t_in->SetBranchAddress("LGEM.lgems.x3.coord.3Dpos",&x3);
+	t_in->SetBranchAddress("LGEM.lgems.y1.coord.3Dpos",&y1);
+	t_in->SetBranchAddress("LGEM.lgems.y2.coord.3Dpos",&y2);
+	t_in->SetBranchAddress("LGEM.lgems.y3.coord.3Dpos",&y3);
 	t_in->SetBranchAddress("L.tr.x",&xv);
 	t_in->SetBranchAddress("L.tr.y",&yv);
 	t_in->SetBranchAddress("L.tr.ph",&VDCph);
 	t_in->SetBranchAddress("L.tr.th",&VDCth);
 	t_in->SetBranchAddress("LGEM.tr.n",&GEMtr);
 	t_in->SetBranchAddress("L.tr.n",&VDCtr);
-	t_in->SetBranchAddress("P.loQadcR",&DSQadc);
-        t_in->SetBranchAddress("P.upQadcR",&USQadc);	
+	t_in->SetBranchAddress("P.loQadcL",&DSQadc);
+        t_in->SetBranchAddress("P.upQadcL",&USQadc);	
 	long entries = t_in->GetEntries();
 
 	TString s_out = Form("/chafs1/work1/prex_counting/marisa/LHRS/prexLHRS_%d_transformed.root",runno);
@@ -141,8 +141,13 @@ void LGEM_Alignment(int runno)
 		}
 	}
 	f_in->Close();
+	cout << "Infile closed" << endl;
 	t_out->Write();
+	cout << "Tree written to outfile" << endl;
 	f_out->Close();
+	cout << "Outfile closed, program successful" << endl;
+
+	return 0;
 }
 
 void Transform(double& x, double& y, double& z)
